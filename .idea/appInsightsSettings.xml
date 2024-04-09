@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="syntax.com.firebaeauthexample" />
+                  <option name="mobileSdkAppId" value="1:726219792156:android:f9b124b86d1f3ef27564d9" />
+                  <option name="projectId" value="fexampleidbatch14" />
+                  <option name="projectNumber" value="726219792156" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
