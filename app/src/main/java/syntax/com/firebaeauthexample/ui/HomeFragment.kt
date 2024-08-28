@@ -20,6 +20,7 @@ class HomeFragment: Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: FirebaseViewModel by activityViewModels()
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,6 +41,10 @@ class HomeFragment: Fragment() {
             if (it == null) {
                 findNavController().navigate(R.id.loginFragment)
             }
+        }
+
+        binding.btToNotes.setOnClickListener {
+            findNavController().navigate(R.id.notesFragment)
         }
 
         binding.btSave.setOnClickListener {

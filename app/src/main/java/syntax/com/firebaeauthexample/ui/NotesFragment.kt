@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import syntax.com.firebaeauthexample.FirebaseViewModel
 import syntax.com.firebaeauthexample.databinding.FragmentNotesBinding
+import syntax.com.firebaeauthexample.model.Note
+import syntax.com.firebaeauthexample.ui.adapter.NotesAdapter
 
 class NotesFragment: Fragment() {
     private lateinit var binding: FragmentNotesBinding
@@ -27,6 +29,14 @@ class NotesFragment: Fragment() {
 
         binding.btSaveNote.setOnClickListener {
             val text = binding.tietNotes.text.toString()
+            viewModel.saveNote(text)
+        }
+
+        viewModel.notesRef.addSnapshotListener { snapshot, error ->
+            if (error == null && snapshot != null) {
+                val notes = snapshot.toObjects(Note::class.java)
+                binding.rvNotes.adapter = NotesAdapter(notes, viewModel)
+            }
         }
     }
 }
