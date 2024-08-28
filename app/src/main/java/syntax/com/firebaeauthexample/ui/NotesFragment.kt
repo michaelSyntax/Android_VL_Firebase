@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import syntax.com.firebaeauthexample.FirebaseViewModel
-import syntax.com.firebaeauthexample.R
-import syntax.com.firebaeauthexample.databinding.FragmentPasswordForgottenBinding
+import syntax.com.firebaeauthexample.databinding.FragmentNotesBinding
 
-class PasswordResetFragment: Fragment() {
-
-    private lateinit var binding: FragmentPasswordForgottenBinding
+class NotesFragment: Fragment() {
+    private lateinit var binding: FragmentNotesBinding
     private val viewModel: FirebaseViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -21,20 +18,15 @@ class PasswordResetFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPasswordForgottenBinding.inflate(layoutInflater)
+        binding = FragmentNotesBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btSendEmailPasswordReset.setOnClickListener {
-            val email = binding.tietEmailPasswordReset.text.toString()
-            viewModel.sendPasswordReset(email)
-        }
-
-        binding.btBackToLogin.setOnClickListener {
-            findNavController().navigate(R.id.loginFragment)
+        binding.btSaveNote.setOnClickListener {
+            val text = binding.tietNotes.text.toString()
         }
     }
 }

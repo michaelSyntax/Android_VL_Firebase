@@ -20,4 +20,8 @@
         android:id="@+id/passwordResetFragment"
         android:name="syntax.com.firebaeauthexample.ui.PasswordResetFragment"
         android:label="PasswordResetFragment" />
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="syntax.com.firebaeauthexample.ui.NotesFragment"
+        android:label="NotesFragment" />
 </navigation>

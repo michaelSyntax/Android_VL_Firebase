@@ -27,32 +27,19 @@ class RegisterFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /**
-         * Button um zurück zum LoginFragment zu navigieren
-          */
         binding.btBack.setOnClickListener {
             findNavController().navigate(R.id.loginFragment)
         }
 
-
-        /**
-         *  Button um User zu registrieren.
-         *  Erst werden E-Mail und passwort aus den Eingabefeldern geholt.
-         *  Wenn beide nicht leer sind rufen wir die register Funktion im ViewModel auf.
-         */
         binding.btRegister.setOnClickListener {
+            val firstname = binding.tietRegFirstname.text.toString()
+            val lastname = binding.tietRegLastname.text.toString()
             val email = binding.tietEmailRegister.text.toString()
             val password = binding.tietPasswordRegister.text.toString()
-
-            if (email.isNotBlank() && password.isNotBlank()) {
-                viewModel.register(email, password)
-            }
+            viewModel.register(email, password)
+            findNavController().navigate(R.id.loginFragment)
         }
 
-        /**
-         * currentUser LiveData aus dem ViewModel wird beobachtet.
-         * Wenn currentUser nicht gleich null (also der User eingeloggt ist) wird zum HomeFragment navigiert.
-         */
         viewModel.currentUser.observe(viewLifecycleOwner) {
             if (it != null) {
                 findNavController().navigate(R.id.homeFragment)

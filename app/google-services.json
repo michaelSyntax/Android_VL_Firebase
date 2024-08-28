@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1073197633161",
+    "project_id": "fir-authexample-d6fee",
+    "storage_bucket": "fir-authexample-d6fee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073197633161:android:c8ade26edbb4fe26d30058",
+        "android_client_info": {
+          "package_name": "syntax.com.firebaeauthexample"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQGu6kcbogjwgtA1_2QmzU3_O-AglY-zE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
