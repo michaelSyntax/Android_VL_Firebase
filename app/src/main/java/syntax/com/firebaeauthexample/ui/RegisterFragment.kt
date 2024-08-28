@@ -36,7 +36,7 @@ class RegisterFragment: Fragment() {
             val lastname = binding.tietRegLastname.text.toString()
             val email = binding.tietEmailRegister.text.toString()
             val password = binding.tietPasswordRegister.text.toString()
-            viewModel.register(email, password)
+            viewModel.register(email, password, firstname, lastname)
             findNavController().navigate(R.id.loginFragment)
         }
 

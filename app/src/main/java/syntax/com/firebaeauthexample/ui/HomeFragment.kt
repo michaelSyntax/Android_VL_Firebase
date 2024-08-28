@@ -45,6 +45,15 @@ class HomeFragment: Fragment() {
         binding.btSave.setOnClickListener {
             val firstName = binding.tietFirstName.text.toString()
             val lastName = binding.tietLastName.text.toString()
+            viewModel.updateProfile(firstName, lastName)
+        }
+
+        viewModel.profileRef.addSnapshotListener { snapshot, error ->
+            if (error == null && snapshot != null) {
+                val profile = snapshot.toObject(Profile::class.java)
+                binding.tietFirstName.setText(profile?.firstName)
+                binding.tietLastName.setText(profile?.lastName)
+            }
         }
     }
 }

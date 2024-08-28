@@ -8,22 +8,35 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.firestore
+import syntax.com.firebaeauthexample.model.Profile
 
 class FirebaseViewModel : ViewModel() {
 
     private val auth = Firebase.auth
+    private val firestore = Firebase.firestore
+    lateinit var profileRef: DocumentReference
 
     private var _currentUser = MutableLiveData<FirebaseUser?>(auth.currentUser)
     val currentUser: LiveData<FirebaseUser?>
         get() = _currentUser
 
+    init {
+        if(auth.currentUser != null) {
+            profileRef = firestore.collection("profiles").document(auth.currentUser!!.uid)
+        }
+    }
 
-    fun register(email: String, password: String) {
+
+    fun register(email: String, password: String, firstname: String, lastname: String) {
         if (email.isNotBlank() && password.isNotBlank()) {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { authResult ->
                     if (authResult.isSuccessful) {
                         _currentUser.value = auth.currentUser
+                        profileRef = firestore.collection("profiles").document(auth.currentUser!!.uid)
+                        profileRef.set(Profile(firstname, lastname, ""))
                     } else {
                         Log.e("FIREBASE", "${authResult.exception}")
                     }
@@ -42,6 +55,10 @@ class FirebaseViewModel : ViewModel() {
                     }
                 }
         }
+    }
+
+    fun updateProfile(firstname: String, lastname: String) {
+        profileRef.set(Profile(firstname, lastname))
     }
 
     fun sendPasswordReset(email: String) {
