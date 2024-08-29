@@ -27,6 +27,7 @@ class NotesAdapter(
         val item = dataset[position]
         holder.binding.tvNoteText.text = item.text
         holder.binding.cvNote.setOnClickListener {
+            viewModel.deleteNote(item)
         }
     }
 }

@@ -41,9 +41,9 @@ class FirebaseViewModel : ViewModel() {
                 .addOnCompleteListener { authResult ->
                     if (authResult.isSuccessful) {
                         _currentUser.value = auth.currentUser
-                        profileRef =
-                            firestore.collection("profiles").document(auth.currentUser!!.uid)
+                        profileRef = firestore.collection("profiles").document(auth.currentUser!!.uid)
                         profileRef.set(Profile(firstname, lastname))
+                        notesRef = profileRef.collection("notes")
                     } else {
                         Log.e("FIREBASE", "${authResult.exception}")
                     }
@@ -57,8 +57,8 @@ class FirebaseViewModel : ViewModel() {
                 .addOnCompleteListener { authResult ->
                     if (authResult.isSuccessful) {
                         _currentUser.value = auth.currentUser
-                        profileRef =
-                            firestore.collection("profiles").document(auth.currentUser!!.uid)
+                        profileRef = firestore.collection("profiles").document(auth.currentUser!!.uid)
+                        notesRef = profileRef.collection("notes")
                     } else {
                         Log.e("FIREBASE", "${authResult.exception}")
                     }
@@ -82,5 +82,9 @@ class FirebaseViewModel : ViewModel() {
     fun saveNote(text: String) {
         val note = Note(text = text)
         notesRef.add(note)
+    }
+
+    fun deleteNote(note: Note) {
+        notesRef.document(note.id).delete()
     }
 }
