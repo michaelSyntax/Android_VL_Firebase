@@ -1,7 +1,9 @@
 package syntax.com.firebaeauthexample
 
+import android.app.Application
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,10 +18,12 @@ import com.google.firebase.storage.storage
 import syntax.com.firebaeauthexample.model.Note
 import syntax.com.firebaeauthexample.model.Profile
 
-class FirebaseViewModel : ViewModel() {
+class FirebaseViewModel(application: Application) : AndroidViewModel(application) {
 
     private val auth = Firebase.auth
     private val firestore = Firebase.firestore
+    private val storage = Firebase.storage
+    private val storageRef = storage.reference
     lateinit var profileRef: DocumentReference
     lateinit var notesRef: CollectionReference
 
@@ -86,5 +90,18 @@ class FirebaseViewModel : ViewModel() {
 
     fun deleteNote(note: Note) {
         notesRef.document(note.id).delete()
+    }
+
+    fun uploadImage(uri: Uri) {
+        val imageRef = storageRef.child("images/${auth.currentUser!!.uid}//profilePic")
+        val uploadTask = imageRef.putFile(uri)
+
+        uploadTask.addOnCompleteListener {
+            imageRef.downloadUrl.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    profileRef.update("profilePicture", it.result)
+                }
+            }
+        }
     }
 }
